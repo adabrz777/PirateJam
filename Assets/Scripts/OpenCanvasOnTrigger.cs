@@ -14,9 +14,9 @@ public class OpenCanvasOnTrigger : MonoBehaviour
         }
     }
 
-    private void OnTriggerEnter(Collider other)
+    private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (other.CompareTag(triggeringTag))
+        if (collision.CompareTag(triggeringTag))
         {
             if (canvasToOpen != null)
             {
@@ -26,9 +26,9 @@ public class OpenCanvasOnTrigger : MonoBehaviour
         }
     }
 
-    private void OnTriggerExit(Collider other)
+    private void OnTriggerExit2D(Collider2D collision)
     {
-        if (other.CompareTag(triggeringTag))
+        if (collision.CompareTag(triggeringTag))
         {
             if (canvasToOpen != null)
             {
