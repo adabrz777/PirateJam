@@ -35,6 +35,9 @@ public class CPlayerMovement : MonoBehaviour
     Rigidbody2D rb;
     Animator animator;
 
+    public int hp = 100;
+
+
 
     // Start is called before the first frame update
     void Start()
