@@ -16,7 +16,8 @@ public class Andrew_Talks : MonoBehaviour
     public bool playerIsClose;
     public Coroutine texting;
 
-    
+
+
 
 	void Update()
     {
