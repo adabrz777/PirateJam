@@ -49,6 +49,7 @@ public class CEnemy : MonoBehaviour {
 		AttackType attackType = AttackType.None;
 
 		if (Random.Range(1, 100) > 50) {
+			Debug.Log("Atakuje i idê do przodu");
 			DoAction(EnemyState.Walking, attackType);
 		} else {
 			int attackDec = Random.Range(1, 100);
@@ -61,7 +62,9 @@ public class CEnemy : MonoBehaviour {
 				attackType = AttackType.Bottom;
 			}
 
+			Debug.Log($"Atakuje i wykonujê atak: {attackType}");
 			DoAction(EnemyState.Attacking, attackType);
+
 
 		}
 	}
@@ -196,14 +199,16 @@ public class CEnemy : MonoBehaviour {
 		brave = (playerHp / myHp) * 100;
 
 		if (actualTimeBetweenDecisions == -1) {
-			if (brave > Random.Range(0, 100)) {
+			if (brave > Random.Range(0, 120)) {
+				Debug.Log("Zdecydowa³em atakowaæ");
 				AttackDecision();
 			} else {
+				Debug.Log("Zdecydowa³em siê broniæ");
 				DeffendDecision();
 			}
 
 			actualTimeBetweenDecisions = 0;
-			Debug.Log("Zdecydowa³em");
+			
 
 		}
 	}
