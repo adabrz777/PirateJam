@@ -22,7 +22,8 @@ public class Andrew_Talks : MonoBehaviour
             if (DialoguePanel.activeInHierarchy)
             {
                 zeroText();
-            }
+				StopCoroutine(texting);
+			}
             else
             {
                 DialoguePanel.SetActive(true);

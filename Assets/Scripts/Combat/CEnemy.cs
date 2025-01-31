@@ -242,6 +242,8 @@ public class CEnemy : MonoBehaviour {
 
 
 	void AttackCalculations(AttackType t_attackType) {
+		transform.GetComponent<AudioSource>().Play();
+
 		transform.GetComponent<Collider2D>().enabled = false;
 		RaycastHit2D hit = Physics2D.Raycast(transform.position, -transform.right, attackDistance);
 		transform.GetComponent <Collider2D>().enabled = true;
@@ -272,6 +274,11 @@ public class CEnemy : MonoBehaviour {
 
 				if (player.myHp <= 0) {
 					Debug.Log("ALCOHOL WINS");
+					playerStats.played += 1;
+
+					if (playerStats.played % 2 == 0 && playerStats.played != 0)
+						SceneManager.LoadScene("EndScene");
+
 					SceneManager.LoadScene("Scena_BEZ_Zona 1");
 				}
 

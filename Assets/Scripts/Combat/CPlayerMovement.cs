@@ -139,6 +139,13 @@ public class CPlayerMovement : MonoBehaviour
                 if(enemy.myHp <= 0) {
                     Debug.Log("PLAYER WINS");
                     playerStats.playerWins += 1;
+
+					playerStats.played += 1;
+
+					if (playerStats.played % 2 == 0 && playerStats.played != 0)
+						SceneManager.LoadScene("EndScene");
+
+
 					SceneManager.LoadScene("Scena_BEZ_Zona 1");
 				}
 			}
@@ -165,7 +172,9 @@ public class CPlayerMovement : MonoBehaviour
 				attackType = AttackType.Bottom;
 				AttackCalculations(attackType);
 			}
-            
+
+            transform.GetComponent<AudioSource>().Play();
+
         }
             
 
