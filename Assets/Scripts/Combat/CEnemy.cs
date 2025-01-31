@@ -6,7 +6,7 @@ using static CPlayerMovement;
 public class CEnemy : MonoBehaviour {
 	float brave;
 	int playerHp;
-	public int myHp = 100;
+	public int myHp = 10;
 
 	public float timeBetweenDecisions = 1.5f;
 	public PlayerStats playerStats;
@@ -255,13 +255,13 @@ public class CEnemy : MonoBehaviour {
 					CPlayerMovement player = hit.collider.gameObject.GetComponent<CPlayerMovement>();
 
 					if (t_attackType == AttackType.Top && player.myState != CharacterState.Crouch) {
-						player.myHp -= 20;
+						player.myHp -= 1;
 
 					} else if (t_attackType == AttackType.Mid && player.myState != CharacterState.WalkingBackward) {
-						player.myHp -= 20;
+						player.myHp -= 1;
 
 					} else if (t_attackType == AttackType.Bottom && player.myState != CharacterState.Jump) {
-						player.myHp -= 20;
+						player.myHp -= 1;
 
 					}
 

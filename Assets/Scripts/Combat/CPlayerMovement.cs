@@ -39,7 +39,7 @@ public class CPlayerMovement : MonoBehaviour
     Rigidbody2D rb;
     Animator animator;
 
-    public int myHp = 100;
+    public int myHp = 10;
 
 
 
@@ -122,13 +122,13 @@ public class CPlayerMovement : MonoBehaviour
                 CEnemy enemy = hit.collider.gameObject.GetComponent<CEnemy>();
                
                 if (t_attackType == AttackType.Top && enemy.myState != EnemyState.Crouch) {
-                    enemy.myHp -= 20;
+                    enemy.myHp -= 1;
 
                 }else if(t_attackType == AttackType.Mid && enemy.myState != EnemyState.WalkingBackward) {
-                    enemy.myHp -= 20;
+                    enemy.myHp -= 1;
                 
                 }else if(t_attackType == AttackType.Bottom && enemy.myState != EnemyState.Jump) {
-                    enemy.myHp -= 20;
+                    enemy.myHp -= 1;
                 
                 }
 
