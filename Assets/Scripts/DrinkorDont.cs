@@ -7,11 +7,11 @@ public class DrinkorDont : MonoBehaviour
 {
     public void ScenaPiwko()
     {
-        //SceneManager.LoadScene("Piwko");
+        SceneManager.LoadScene("CombatBeer");
     }
 
     public void ScenaWodka()
     {
-        //SceneManager.LoadScene("Wodka");
+        SceneManager.LoadScene("CombatVodka");
     }
 }

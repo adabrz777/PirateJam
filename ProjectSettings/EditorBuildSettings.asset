@@ -8,4 +8,16 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/SampleScene.unity
     guid: 2cda990e2423bbf4892e6590ba056729
+  - enabled: 1
+    path: Assets/Scenes/CombatBeer.unity
+    guid: 57aa91590d0f83b4c98f986fa44d5a8c
+  - enabled: 1
+    path: Assets/Scenes/Scena_Z_Zona.unity
+    guid: ecb47c308dd276c4f98aa7026ca3ac5b
+  - enabled: 1
+    path: Assets/Scenes/Scena_BEZ_Zona 1.unity
+    guid: 2a402be18dcdef148acfb43db2ee6896
+  - enabled: 1
+    path: Assets/Scenes/CombatVodka.unity
+    guid: f719ee71670912242a549f9ba7a362d4
   m_configObjects: {}

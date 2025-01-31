@@ -1,12 +1,17 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
+using static CEnemy;
 using static CPlayerMovement;
 
 public class CEnemy : MonoBehaviour {
 	float brave;
 	int playerHp;
-	int myHp = 100;
+	public int myHp = 100;
 
 	public float timeBetweenDecisions = 1.5f;
+	public PlayerStats playerStats;
+
+
 	float actualTimeBetweenDecisions = -1;
 
 	public enum EnemyState { None, Walking, WalkingBackward, Jump, Crouch, Attacking };
@@ -32,7 +37,7 @@ public class CEnemy : MonoBehaviour {
 		rb = transform.GetComponent<Rigidbody2D>();
 		animator = transform.GetComponent<Animator>();
 
-		playerHp = GameObject.Find("Player").GetComponent<CPlayerMovement>().hp;
+		playerHp = GameObject.Find("Player").GetComponent<CPlayerMovement>().myHp;
 	}
 
 	// Update is called once per frame
@@ -101,15 +106,7 @@ public class CEnemy : MonoBehaviour {
 	}
 
 	void Attack(AttackType t_attackType) {
-		if (actualAttackingTime >= 0) {
-			actualAttackingTime += Time.fixedDeltaTime;
-			myState = EnemyState.Attacking;
-		}
-
-		if (actualAttackingTime >= timeForAttack) {
-			actualAttackingTime = -1;
-			attackType = AttackType.None;
-		}
+		
 
 
 		
@@ -119,6 +116,7 @@ public class CEnemy : MonoBehaviour {
 			myState = EnemyState.Attacking;
 			actualAttackingTime = 0;
 			attackType = t_attackType;
+			AttackCalculations(t_attackType);
 		}
 			
 
@@ -166,11 +164,23 @@ public class CEnemy : MonoBehaviour {
 	}
 
 
+	private void CalculateTime() {
+		if (actualAttackingTime >= 0) {
+			actualAttackingTime += Time.fixedDeltaTime;
+			myState = EnemyState.Attacking;
+		}
 
+		if (actualAttackingTime >= timeForAttack) {
+			actualAttackingTime = -1;
+			attackType = AttackType.None;
+		}
+	}
 
 
 	private void FixedUpdate() {
 		DecisionAboutBrave();
+		CalculateTime();
+		
 
 		FallingDown();
 	}
@@ -228,6 +238,48 @@ public class CEnemy : MonoBehaviour {
 
 
 	}
+
+
+	void AttackCalculations(AttackType t_attackType) {
+		transform.GetComponent<Collider2D>().enabled = false;
+		RaycastHit2D hit = Physics2D.Raycast(transform.position, -transform.right, 10f);
+		transform.GetComponent <Collider2D>().enabled = true;
+
+		Debug.DrawRay(transform.position, -transform.right * 10f, Color.green, 1f);
+		Debug.Log("Hit: " + hit.collider.name);
+
+		if (hit.collider != null) {
+			if (hit.collider.name == "Player") {
+
+					CPlayerMovement player = hit.collider.gameObject.GetComponent<CPlayerMovement>();
+
+					if (t_attackType == AttackType.Top && player.myState != CharacterState.Crouch) {
+						player.myHp -= 20;
+
+					} else if (t_attackType == AttackType.Mid && player.myState != CharacterState.WalkingBackward) {
+						player.myHp -= 20;
+
+					} else if (t_attackType == AttackType.Bottom && player.myState != CharacterState.Jump) {
+						player.myHp -= 20;
+
+					}
+
+
+					Debug.Log($"Trafiono Gracza! Jego hp spad³o do: {player.myHp}");
+
+
+
+				if (player.myHp <= 0) {
+					Debug.Log("ALCOHOL WINS");
+					SceneManager.LoadScene("Scena_BEZ_Zona 1");
+				}
+
+
+
+			}
+		}
+	}
+
 
 	private void OnCollisionEnter2D(Collision2D collision) {
 		if(collision.gameObject.CompareTag("Ground"))

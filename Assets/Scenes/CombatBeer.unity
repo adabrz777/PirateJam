@@ -429,9 +429,10 @@ MonoBehaviour:
   jumpingForce: 35
   fallingMultiplier: 2.5
   timeForAttack: 0.75
+  playerStats: {fileID: 11400000, guid: a6c8f43dd3e09f64c8d29cba15ef09a9, type: 2}
   myState: 0
   attackType: 0
-  hp: 100
+  myHp: 100
 --- !u!212 &997376394
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -681,7 +682,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0003d14159d64234fb345ddae53c2967, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  timeBetweenDecisions: 1.5
+  myHp: 100
+  timeBetweenDecisions: 1
+  playerStats: {fileID: 11400000, guid: a6c8f43dd3e09f64c8d29cba15ef09a9, type: 2}
   myState: 0
   attackType: 0
   timeForAttack: 0.75
