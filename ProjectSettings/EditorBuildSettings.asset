@@ -20,4 +20,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/CombatVodka.unity
     guid: f719ee71670912242a549f9ba7a362d4
+  - enabled: 1
+    path: Assets/Scenes/MainMenu.unity
+    guid: 1ebd13a369b7d884687b2879fef2d3a4
   m_configObjects: {}
