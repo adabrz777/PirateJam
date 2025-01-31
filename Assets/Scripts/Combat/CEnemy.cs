@@ -199,6 +199,9 @@ public class CEnemy : MonoBehaviour {
 	}
 
 	void DecisionAboutBrave() {
+		if(myHp <=  0)
+			endScene();
+
 		if (actualTimeBetweenDecisions >= 0) {
 			actualTimeBetweenDecisions += Time.fixedDeltaTime;
 		}
@@ -273,13 +276,7 @@ public class CEnemy : MonoBehaviour {
 
 
 				if (player.myHp <= 0) {
-					Debug.Log("ALCOHOL WINS");
-					playerStats.played += 1;
-
-					if (playerStats.played % 2 == 0 && playerStats.played != 0)
-						SceneManager.LoadScene("EndScene");
-
-					SceneManager.LoadScene("Scena_BEZ_Zona 1");
+					endScene();
 				}
 
 
@@ -288,6 +285,15 @@ public class CEnemy : MonoBehaviour {
 		}
 	}
 
+	void endScene() {
+		Debug.Log("ALCOHOL WINS");
+		playerStats.played += 1;
+
+		if (playerStats.played % 2 == 0 && playerStats.played != 0)
+			SceneManager.LoadScene("EndScene");
+
+		SceneManager.LoadScene("Scena_BEZ_Zona 1");
+	}
 
 	private void OnCollisionEnter2D(Collision2D collision) {
 		if(collision.gameObject.CompareTag("Ground"))
