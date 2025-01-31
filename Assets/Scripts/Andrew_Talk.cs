@@ -4,22 +4,18 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using System;
-using System.Data;
 
 public class Andrew_Talks : MonoBehaviour
 {
     public GameObject DialoguePanel;
     public TMP_Text DialogueText;
     public string[] dialogue;
-    private int index;
+    private int index = 0;  // Start at the first dialogue line
     public float wordSpeed;
     public bool playerIsClose;
-    public Coroutine texting;
+    private Coroutine texting;
 
-
-
-
-	void Update()
+    void Update()
     {
         if (Input.GetKeyUp(KeyCode.E) && playerIsClose)
         {
@@ -29,7 +25,6 @@ public class Andrew_Talks : MonoBehaviour
             }
             else
             {
-                index = UnityEngine.Random.Range(0, dialogue.Length - 1); 
                 DialoguePanel.SetActive(true);
                 texting = StartCoroutine(Typing());
             }
@@ -38,22 +33,32 @@ public class Andrew_Talks : MonoBehaviour
 
     public void zeroText()
     {
-        StopCoroutine(texting);
+        if (texting != null)
+        {
+            StopCoroutine(texting);
+        }
         DialogueText.text = "";
-        index = 0;
         DialoguePanel.SetActive(false);
     }
 
     IEnumerator Typing()
     {
-        foreach(char letter in dialogue[index].ToCharArray())
+        DialogueText.text = "";  // Clear text before displaying new dialogue
+        foreach (char letter in dialogue[index].ToCharArray())
         {
             DialogueText.text += letter;
             yield return new WaitForSeconds(wordSpeed);
         }
+
+        // Move to the next dialogue line
+        index++;
+
+        // Reset index if we reached the end
+        if (index >= dialogue.Length)
+        {
+            index = 0;
+        }
     }
-
-
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
