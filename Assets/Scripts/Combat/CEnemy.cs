@@ -1,4 +1,5 @@
 using UnityEngine;
+using static CPlayerMovement;
 
 public class CEnemy : MonoBehaviour {
 	float brave;
@@ -36,7 +37,7 @@ public class CEnemy : MonoBehaviour {
 
 	// Update is called once per frame
 	void Update() {
-		SetAnimation();
+		SetAnimation(myState, attackType);
 	}
 
 	void AttackDecision() {
@@ -99,7 +100,7 @@ public class CEnemy : MonoBehaviour {
 
 	}
 
-	void Attack(AttackType attackType) {
+	void Attack(AttackType t_attackType) {
 		if (actualAttackingTime >= 0) {
 			actualAttackingTime += Time.fixedDeltaTime;
 			myState = EnemyState.Attacking;
@@ -111,44 +112,15 @@ public class CEnemy : MonoBehaviour {
 		}
 
 
-		//Debug.Log($"Attack z animacji: {animator.GetFloat("Attack")}");
-
-		//if ((int)animator.GetFloat("Attack") != (int)attackType)
-		//	switch ((int)attackType) {
-		//		case 1:
-					
-		//			break;
-
-		//		case 2:
-					
-		//			break;
-
-		//		case 3:
-					
-		//			break;
-
-		//	}
+		
 
 
-		if (actualAttackingTime < 0)
-			if (attackType == AttackType.Top) {
-				myState = EnemyState.Attacking;
-				actualAttackingTime = 0;
-				attackType = AttackType.Top;
-				animator.SetFloat("Attack", 0);
-
-			} else if (attackType == AttackType.Mid) {
-				myState = EnemyState.Attacking;
-				actualAttackingTime = 0;
-				attackType = AttackType.Mid;
-				animator.SetFloat("Attack", 1);
-
-			} else if (attackType == AttackType.Bottom) {
-				myState = EnemyState.Attacking;
-				actualAttackingTime = 0;
-				attackType = AttackType.Bottom;
-				animator.SetFloat("Attack", 2);
-			}
+		if (actualAttackingTime < 0) {
+			myState = EnemyState.Attacking;
+			actualAttackingTime = 0;
+			attackType = t_attackType;
+		}
+			
 
 	}
 
@@ -237,31 +209,22 @@ public class CEnemy : MonoBehaviour {
 		}
 	}
 
-	void SetAnimation() {
-		switch ((int)myState) {
-			case 0:
-				animator.SetInteger("Animation", 0);
-				break;
+	void SetAnimation(EnemyState t_state, AttackType t_attackType) {
 
-			case 1:
-				animator.SetInteger("Animation", 1);
-				break;
 
-			case 2:
-				animator.SetInteger("Animation", 2);
-				break;
-
-			case 3:
-			case 4:
-				animator.SetInteger("Animation", 3);
-				break;
-
-			case 5:
-				animator.SetInteger("Animation", 4);
-				break;
+		if (animator.GetInteger("Animation") != (int)t_state) {
+			animator.SetInteger("Animation", (int)t_state);
+			Debug.Log("Enemy: zmieniam animacjê");
 		}
 
-		
+
+		if ((int)t_attackType != (int)animator.GetInteger("Attack")) {
+			animator.SetInteger("Attack", (int)t_attackType);
+			Debug.Log($"Enemy: zmieniam animacjê ataku na {(int)t_attackType}");
+		}
+
+
+
 	}
 
 	private void OnCollisionEnter2D(Collision2D collision) {

@@ -71,49 +71,27 @@ public class CPlayerMovement : MonoBehaviour
     void Update()
     {
         GetKeys();
-        SetAnimation();
+        SetAnimation(myState, attackType);
 
 
     }
 
-    void SetAnimation() {
-        switch ((int)myState) {
-            case 0:
-                animator.SetInteger("Animation", 0);
-                break;
-            
-            case 1:
-                animator.SetInteger("Animation", 1);
-                break;
+    void SetAnimation(CharacterState t_state, AttackType t_attackType) {
 
-            case 2:
-                animator.SetInteger("Animation", 2);
-                break;
 
-            case 3:
-            case 4:
-                animator.SetInteger("Animation", 3);
-                break;
-
-            case 5:
-                animator.SetInteger("Animation", 4);
-                break;
+       if(animator.GetInteger("Animation") != (int)t_state) {
+            animator.SetInteger("Animation", (int)t_state);
+            Debug.Log("Player: zmieniam animacjê");
         }
 
-        switch ((int)attackType) {
-            case 1:
-                animator.SetInteger("Attack", 0);
-                break;
-                
-            case 2:
-                animator.SetInteger("Attack", 1);
-                break;
 
-            case 3:
-                animator.SetInteger("Attack", 2);
-                break;
-
+        if ((int)t_attackType != (int)animator.GetInteger("Attack")) {
+            animator.SetInteger("Attack", (int)t_attackType);
+            Debug.Log("Player: zmieniam animacjê ataku");
         }
+
+
+
     }
 
 
