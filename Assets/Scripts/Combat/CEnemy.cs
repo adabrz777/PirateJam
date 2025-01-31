@@ -24,16 +24,19 @@ public class CEnemy : MonoBehaviour {
 	public float fallingMultiplier = 2.5f;
 
 	Rigidbody2D rb;
+	Animator animator;
 
 	// Start is called before the first frame update
 	void Start() {
 		rb = transform.GetComponent<Rigidbody2D>();
+		animator = transform.GetComponent<Animator>();
+
 		playerHp = GameObject.Find("Player").GetComponent<CPlayerMovement>().hp;
 	}
 
 	// Update is called once per frame
 	void Update() {
-
+		SetAnimation();
 	}
 
 	void AttackDecision() {
@@ -76,8 +79,8 @@ public class CEnemy : MonoBehaviour {
 		// 3 - czy kucn¹æ
 
 		AttackType attackType = AttackType.None;
-		EnemyState newState = EnemyState.None;
-
+		//EnemyState newState = EnemyState.None;
+		EnemyState newState = myState;
 
 
 		int deffDec = Random.Range(1, 100);
@@ -107,21 +110,44 @@ public class CEnemy : MonoBehaviour {
 			attackType = AttackType.None;
 		}
 
+
+		//Debug.Log($"Attack z animacji: {animator.GetFloat("Attack")}");
+
+		//if ((int)animator.GetFloat("Attack") != (int)attackType)
+		//	switch ((int)attackType) {
+		//		case 1:
+					
+		//			break;
+
+		//		case 2:
+					
+		//			break;
+
+		//		case 3:
+					
+		//			break;
+
+		//	}
+
+
 		if (actualAttackingTime < 0)
 			if (attackType == AttackType.Top) {
 				myState = EnemyState.Attacking;
 				actualAttackingTime = 0;
 				attackType = AttackType.Top;
+				animator.SetFloat("Attack", 0);
 
 			} else if (attackType == AttackType.Mid) {
 				myState = EnemyState.Attacking;
 				actualAttackingTime = 0;
 				attackType = AttackType.Mid;
+				animator.SetFloat("Attack", 1);
 
 			} else if (attackType == AttackType.Bottom) {
 				myState = EnemyState.Attacking;
 				actualAttackingTime = 0;
 				attackType = AttackType.Bottom;
+				animator.SetFloat("Attack", 2);
 			}
 
 	}
@@ -200,10 +226,8 @@ public class CEnemy : MonoBehaviour {
 
 		if (actualTimeBetweenDecisions == -1) {
 			if (brave > Random.Range(0, 120)) {
-				Debug.Log("Zdecydowa³em atakowaæ");
 				AttackDecision();
 			} else {
-				Debug.Log("Zdecydowa³em siê broniæ");
 				DeffendDecision();
 			}
 
@@ -213,6 +237,32 @@ public class CEnemy : MonoBehaviour {
 		}
 	}
 
+	void SetAnimation() {
+		switch ((int)myState) {
+			case 0:
+				animator.SetInteger("Animation", 0);
+				break;
+
+			case 1:
+				animator.SetInteger("Animation", 1);
+				break;
+
+			case 2:
+				animator.SetInteger("Animation", 2);
+				break;
+
+			case 3:
+			case 4:
+				animator.SetInteger("Animation", 3);
+				break;
+
+			case 5:
+				animator.SetInteger("Animation", 4);
+				break;
+		}
+
+		
+	}
 
 	private void OnCollisionEnter2D(Collision2D collision) {
 		if(collision.gameObject.CompareTag("Ground"))

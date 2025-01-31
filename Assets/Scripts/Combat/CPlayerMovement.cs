@@ -152,7 +152,6 @@ public class CPlayerMovement : MonoBehaviour
 
 
     void HorizontalMovement() {
-        Debug.Log(horizontalInput);
         rb.velocity = new Vector2(movingSpeed * horizontalInput * Time.fixedDeltaTime , rb.velocity.y);
 
         if (horizontalInput == -1)
@@ -168,7 +167,6 @@ public class CPlayerMovement : MonoBehaviour
             isJumpKeyDown = false;
             
             if(isGrounded) {
-                Debug.Log("Skacze");
                 rb.AddForce(new Vector2(0, 1) * jumpingForce, ForceMode2D.Impulse);
                 isGrounded = false;
             }
@@ -186,7 +184,6 @@ public class CPlayerMovement : MonoBehaviour
     void Crouch() {
 		if (SisDown) {
 			if (isGrounded) {
-                Debug.Log("Kucam");
                 myState = CharacterState.Crouch;
             }
 		}
