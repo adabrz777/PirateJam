@@ -131,8 +131,10 @@ public class CEnemy : MonoBehaviour {
 
 		if (state == EnemyState.Walking) {
 			movingDirection = new Vector2(-1, rb.velocity.y);
+			myState = EnemyState.Walking;
 		} else {
 			movingDirection = new Vector2(1, rb.velocity.y);
+			myState = EnemyState.WalkingBackward;
 		}
 
 		rb.velocity = new Vector2(movingDirection.x * movingSpeed * Time.fixedDeltaTime, rb.velocity.y);
@@ -142,7 +144,7 @@ public class CEnemy : MonoBehaviour {
 	void Jump() {
 		rb.AddForce(new Vector2(0, 1) * jumpingForce, ForceMode2D.Impulse);
 		isGrounded = false;
-
+		myState = EnemyState.Jump;
 
 	}
 
