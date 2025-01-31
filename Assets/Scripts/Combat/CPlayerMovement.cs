@@ -21,6 +21,7 @@ public class CPlayerMovement : MonoBehaviour
     public float movingSpeed = 3f;
     public float jumpingForce = 100f;
     public float fallingMultiplier = 2f;
+    public float attackDistance = 7f;
 
     public float timeForAttack = 0.75f;
     private float actualAttackingTime = -1;
@@ -110,10 +111,10 @@ public class CPlayerMovement : MonoBehaviour
 
 	void AttackCalculations(AttackType t_attackType) {
 		transform.GetComponent<Collider2D>().enabled = false;
-		RaycastHit2D hit = Physics2D.Raycast(transform.position, transform.right, 10f);
+		RaycastHit2D hit = Physics2D.Raycast(transform.position, transform.right, attackDistance);
 		transform.GetComponent<Collider2D>().enabled = true;
 
-		Debug.DrawRay(transform.position, transform.right * 10f, Color.green, 1f);
+		Debug.DrawRay(transform.position, transform.right * attackDistance, Color.green, 1f);
 		Debug.Log("Hit: " + hit.collider.name);
 
 		if (hit.collider != null) {

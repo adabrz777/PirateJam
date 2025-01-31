@@ -24,6 +24,7 @@ public class CEnemy : MonoBehaviour {
 
 	public float timeForAttack = 0.75f;
 	private float actualAttackingTime = -1;
+	public float attackDistance = 7f;
 
 	public float movingSpeed = 120f;
 	public float jumpingForce = 40f;
@@ -242,10 +243,10 @@ public class CEnemy : MonoBehaviour {
 
 	void AttackCalculations(AttackType t_attackType) {
 		transform.GetComponent<Collider2D>().enabled = false;
-		RaycastHit2D hit = Physics2D.Raycast(transform.position, -transform.right, 10f);
+		RaycastHit2D hit = Physics2D.Raycast(transform.position, -transform.right, attackDistance);
 		transform.GetComponent <Collider2D>().enabled = true;
 
-		Debug.DrawRay(transform.position, -transform.right * 10f, Color.green, 1f);
+		Debug.DrawRay(transform.position, -transform.right * attackDistance, Color.green, 1f);
 		Debug.Log("Hit: " + hit.collider.name);
 
 		if (hit.collider != null) {
